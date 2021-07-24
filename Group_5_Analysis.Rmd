@@ -1,0 +1,27 @@
+---
+---
+title: "Analysis of the number of people living in a household"
+author: "Group 5"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: no
+  html_document:
+    df_print: paged
+fig_caption: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, eval = TRUE, warning = FALSE, message = FALSE, comment = NA)
+```
+
+```{r libraries}
+library(tidyverse)
+library(moderndive)
+library(skimr)
+library(kableExtra)
+library(gridExtra)
+library(olsrr)
+library(broom)
+```
+
