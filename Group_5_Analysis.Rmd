@@ -206,10 +206,192 @@ Cor.data.HFA <-data %>%
 
 Cor.data.HA <-data %>%
   get_correlation(formula = Total.Number.of.Family.members ~ House.Age)
-```
 
+```
 Figure \ref{fig:plot2} displays scatterplots of total number of family members against total household income, total food expenditure, household head age, house floor area and house age respectively, with corresponding correlation: `r round(Cor.data.THI, 3)`, `r round(Cor.data.TFE, 3)`,`r round(Cor.data.HHA, 3)`,`r round(Cor.data.HFA, 3)`,`r round(Cor.data.HA, 3)`.
 All except household head age and house age have positive relationship with total number of family members.
 
 
+# Formal Data Analysis {#sec:FDA}
+This report fits the following generalized linear model for the research.
+
+
+$$            \begin{array}{ll}
+              \widehat{TNOFM}_{i} = \hat{a}+\hat{b} \cdot THI + \hat c \cdot TFE +\hat{d}_{Male} \cdot \mathbb{I}_{Male}(i) + \hat{e} \cdot HHA+\hat{f}_{SingleFamily} \cdot \mathbb{I}_{SingleFamily}(i) \\
+              + \hat{g}_{Two Or More Nonrelated Persons/Members} \cdot \mathbb{I}_{Two Or More Nonrelated Persons/Members}(i) +\hat{h} \cdot HFA +\hat{i} \cdot HA \\
+              + \hat{j}_{N1} \cdot \mathbb{I}_{N1}(i) +\hat{k}_{N2} \cdot \mathbb{I}_{N2}(i)+\hat{l}_{N3} \cdot \mathbb{I}_{N3}(i)+\hat{m}_{N4} \cdot \mathbb{I}_{N4}(i)+\hat{n}_{N5} \cdot \mathbb{I}_{N5}(i)+\hat{o}_{N6} \cdot \mathbb{I}_{N6}(i)+ \hat{p}_{Yes} \cdot \mathbb{I}_{Yes}(i)
+            \end{array}$$
+where
+
+$\widehat{TNOFM}_{i}$ is the expected value of the total number of family members of $i^{th}$ observation
+
+$\hat a$ is the intercept of the generalized linear model
+
+$\hat b$ is the coefficient for the first explanatory variable "total household income"
+
+$\hat c$ is the coefficient for the second explanatory variable "total food expenditure"
+
+$\hat d$ is the coefficient for the third explanatory variable "household head sex"
+
+$\mathbb{I}_{Male}(x)$ is an indicator function:
+$$\mathbb{I}_{Male}(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the observation is male} ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+
+$\hat e$ is the coefficient for the explanatory variable "household head age"
+
+$\hat f$ and $\hat g$ are the coefficient of the classification variable "type of household"
+
+$\mathbb{I}_{Single Family }(x)$ is an indicator function:
+$$\mathbb{I}_{Single Family }(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the observation is single family } ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+
+$\mathbb{I}_{Two Or More Nonrelated Persons/Members }(x)$ is an indicator function:
+$$\mathbb{I}_{Two Or More Nonrelated Persons/Members }(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the observation has two or more nonrelated persons/members } ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+
+
+$\hat h$ is the coefficient of the explanatory variable "house floor area"
+
+$\hat i$ is the coefficient of the explanatory variable "house age"
+
+$\hat j$,$\hat k$, $\hat l$, $\hat m$, $\hat n$, and $\hat o$ are the coefficient of classification variable "number of bedrooms"
+
+$\mathbb{I}_{N1 }(x)$ is an indicator function:
+$$\mathbb{I}_{N1 }(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the house has one bedroom} ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+          
+$\mathbb{I}_{N2 }(x)$ is an indicator function:
+$$\mathbb{I}_{N2 }(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the house has two bedrooms} ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+
+$\mathbb{I}_{N3 }(x)$ is an indicator function:
+$$\mathbb{I}_{N3 }(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the house has three bedrooms} ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+
+$\mathbb{I}_{N4 }(x)$ is an indicator function:
+$$\mathbb{I}_{N4 }(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the house has four bedrooms} ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+
+$\mathbb{I}_{N5 }(x)$ is an indicator function:
+$$\mathbb{I}_{N5}(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the house has five bedrooms} ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+
+$\mathbb{I}_{N6 }(x)$ is an indicator function:
+$$\mathbb{I}_{N6 }(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the house have six bedrooms} ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+
+
+$\hat p$ is the coefficient of the explanatory variable "electricity"
+
+$\mathbb{I}_{Yes }(x)$ is an indicator function:
+$$\mathbb{I}_{Yes }(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the house have electricity} ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+\newpage
+```{r}
+full.model <- glm(Total.Number.of.Family.members~.,data = data,family = poisson)
+
+
+summary(full.model)$coefficients%>%
+  kbl(booktabs = T,caption = '\\label{tab:glm1} Estimates of the parameters from the Generalized linear model.',col.names = c('Estimate', "Std.Error", "Z value",'P value'))%>%
+  kable_styling(latex_options = c("striped","hold_position"))
+
+
 ```
+
+Table\ref{tab:glm1} shows that all of the classification variables number of bedroom is not significant due to all p value are greater than 0.05. The p value of electricity and house floor area are approximately 0.685 and 0.255 which are both greater than 0.05, so these variables are also not significant for the response variable. One of the categorical variables for type of household is not significant (two or more unrelated people in the household). The remaining variables are all significant. Due to some variable is not significant for response variable, this report use step function to select variable that contribute to the model.
+
+
+```{r}
+s <-step(full.model,trace=0)
+
+summary(s)$coefficients%>%
+  kbl(booktabs = T,caption = '\\label{tab:glm2} Estimates of the parameters from the Generalized linear model.',col.names = c('Estimate', "Std.Error", "Z value",'P value'))%>%
+  kable_styling(latex_options = c("striped","hold_position"))
+
+```
+
+Table\ref{tab:glm2} shows the best model with smallest AIC.
+$$            \begin{array}{ll}
+              \widehat{TNOFM}_{i} = \hat{a}+\hat{b} \cdot THI + \hat c \cdot TFE +\hat{d}_{Male} \cdot \mathbb{I}_{Male}(i) + \hat{e} \cdot HHA+\hat{f}_{SingleFamily} \cdot \mathbb{I}_{SingleFamily}(i) \\
+              + \hat{g}_{Two Or More Nonrelated Persons/Members} \cdot \mathbb{I}_{Two Or More Nonrelated Persons/Members}(i) +\hat{h} \cdot HA\\
+            \end{array}$$
+where
+
+$\widehat{TNOFM}_{i}$ is the expected value of the total number of family members of $i^{th}$ observation
+
+$\hat a$ is the intercept of the generalized linear model
+
+$\hat b$ is the coefficient for the first explanatory variable "total household income"
+
+$\hat c$ is the coefficient for the second explanatory variable "total food expenditure"
+
+$\hat d$ is the coefficient for the third explanatory variable "household head sex"
+
+$\mathbb{I}_{Male}(x)$ is an indicator function:
+$$\mathbb{I}_{Male}(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the observation is male} ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+
+$\hat e$ is the coefficient for the explanatory variable "household head age"
+
+$\hat f$ and $\hat g$ are the coefficient of the classification variable "type of household"
+
+$\mathbb{I}_{Single Family }(x)$ is an indicator function:
+$$\mathbb{I}_{Single Family }(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the observation is single family } ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+
+$\mathbb{I}_{Two Or More Nonrelated Persons/Members }(x)$ is an indicator function:
+$$\mathbb{I}_{Two Or More Nonrelated Persons/Members }(x)=\left\{
+            \begin{array}{ll}
+              1 ~~~ \mbox{if the observation has two or more nonrelated persons/members } ~ \mbox{},\\
+              0 ~~~ \mbox{Otherwise}.\\
+            \end{array}
+          \right.$$
+$\hat h$ is the coefficient of the explanatory variable "house age"
