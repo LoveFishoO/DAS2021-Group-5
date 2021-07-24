@@ -45,3 +45,171 @@ data <- read.csv('dataset5.csv') # Loading data set
 data$Number.of.bedrooms<-as.factor(data$Number.of.bedrooms)
 data$Electricity<-as.factor(data$Electricity)
 ```
+
+# Exploratory Data Analysis {#sec:EDA}
+```{r}
+# Summarize the Household.Head.Sex variable
+data %>% group_by(Household.Head.Sex) %>%
+  summarise(n=n(),Mean=round(mean(Total.Number.of.Family.members),digits=1), St.Dev=round(sd(Total.Number.of.Family.members),digits=1), # Summarize info
+  Min=min(Total.Number.of.Family.members), Q1 = quantile(Total.Number.of.Family.members,0.25), Median=median(Total.Number.of.Family.members),
+  Q3 = quantile(Total.Number.of.Family.members,0.75), Max=max(Total.Number.of.Family.members))%>%
+  kbl(booktabs = T,caption = '\\label{tab:summarise1}Summary statistics on Total.Number.of.Family.members by the Household.Head.Sex')%>%
+  kable_styling(latex_options = c("striped","hold_position"))
+```
+
+Table \ref{tab:summarise1} shows that there are roughly fourth as many male household head in the sample (`r nrow(data[data$Household.Head.Sex=="Male",])` compared to `r nrow(data[data$Household.Head.Sex=="Female",])`). 
+The summaries of the total number of family members of male household head were roughly similar with the corresponding summaries of female household head except mean. The mean of the total family members of male household head was `r round(mean(data[data$Household.Head.Sex=="Male",]$Total.Number.of.Family.members),1)` compared to `r round(mean(data[data$Household.Head.Sex=="Female",]$Total.Number.of.Family.members),1)` for female household head.
+
+\newpage
+```{r}
+# Summarize the Type.of.Household variable
+data %>% group_by(Type.of.Household) %>%
+  summarise(n=n(),Mean=round(mean(Total.Number.of.Family.members),digits=1), St.Dev=round(sd(Total.Number.of.Family.members),digits=1), # Summarize info
+  Min=min(Total.Number.of.Family.members), Q1 = quantile(Total.Number.of.Family.members,0.25), Median=median(Total.Number.of.Family.members),
+  Q3 = quantile(Total.Number.of.Family.members,0.75), Max=max(Total.Number.of.Family.members))%>%
+  kbl(booktabs = T,caption = '\\label{tab:summarise2}Summary statistics on Total.Number.of.Family.members by the Type.of.Household')%>%
+  kable_styling(latex_options = c("striped","hold_position"))
+```
+
+Table \ref{tab:summarise2} shows that there are significant difference in terms of the number of different household types in the sample, with (`r nrow(data[data$Type.of.Household=="Extended Family",])` extended family, `r nrow(data[data$Type.of.Household=="Single Family",])` single family and `r nrow(data[data$Type.of.Household=="Two or More Nonrelated Persons/Members",])` two or more nonrelated persons/members). 
+The summaries of the total number of family members of single family were slightly lower than the corresponding summaries of other household types. For example, the means of the total family members of extended family, single family and two or more nonrelated persons/members were `r round(mean(data[data$Type.of.Household=="Extended Family",]$Total.Number.of.Family.members),1)`,`r round(mean(data[data$Type.of.Household=="Single Family",]$Total.Number.of.Family.members),1)` and `r round(mean(data[data$Type.of.Household=="Two or More Nonrelated Persons/Members",]$Total.Number.of.Family.members),1)` respectively.
+
+```{r}
+# Summarize the Number.of.bedrooms variable
+data %>% group_by(Number.of.bedrooms) %>%
+  summarise(n=n(),Mean=round(mean(Total.Number.of.Family.members),digits=1), St.Dev=round(sd(Total.Number.of.Family.members),digits=1), # Summarize info
+  Min=min(Total.Number.of.Family.members), Q1 = quantile(Total.Number.of.Family.members,0.25), Median=median(Total.Number.of.Family.members),
+  Q3 = quantile(Total.Number.of.Family.members,0.75), Max=max(Total.Number.of.Family.members))%>%
+  kbl(booktabs = T,caption = '\\label{tab:summarise3}Summary statistics on Total.Number.of.Family.members by the Number.of.bedrooms')%>%
+  kable_styling(latex_options = c("striped","hold_position"))
+```
+
+Table \ref{tab:summarise3} shows that there are significant difference in terms of the number of bedrooms in the sample, with (`r nrow(data[data$Number.of.bedrooms==0,])` zero bedroom, `r nrow(data[data$Number.of.bedrooms==1,])` one bedroom, `r nrow(data[data$Number.of.bedrooms==2,])` two bedroomds, `r nrow(data[data$Number.of.bedrooms==3,])` three bedrooms, `r nrow(data[data$Number.of.bedrooms==4,])` four bedrooms, `r nrow(data[data$Number.of.bedrooms==5,])` five bedrooms and `r nrow(data[data$Number.of.bedrooms==6,])` six bedrooms). The summaries of the total number of family members of different number of bedrooms were different, mainly in terms of mean and max.
+
+```{r}
+# Summarize the Electricity variable
+data %>% group_by(Electricity) %>%
+  summarise(n=n(),Mean=round(mean(Total.Number.of.Family.members),digits=1), St.Dev=round(sd(Total.Number.of.Family.members),digits=1), # Summarize info
+  Min=min(Total.Number.of.Family.members), Q1 = quantile(Total.Number.of.Family.members,0.25), Median=median(Total.Number.of.Family.members),
+  Q3 = quantile(Total.Number.of.Family.members,0.75), Max=max(Total.Number.of.Family.members))%>%
+  kbl(booktabs = T,caption = '\\label{tab:summarise4}Summary statistics on Total.Number.of.Family.members by the Electricity')%>%
+  kable_styling(latex_options = c("striped","hold_position"))
+```
+
+Table \ref{tab:summarise4} shows that there are roughly fourth as many households with electricity in the sample (`r nrow(data[data$Electricity==1,])` compared to `r nrow(data[data$Electricity==0,])`). 
+The summaries of the total number of family members of households with electricity were roughly similar with the corresponding summaries of households without electricity except mean and max. For example, the mean of the total family members of households without electricity was `r round(mean(data[data$Electricity==0,]$Total.Number.of.Family.members),1)` compared to `r round(mean(data[data$Electricity==1,]$Total.Number.of.Family.members),1)` for households with electricity.
+
+```{r boxplot, fig.align = "center", fig.cap = "\\label{fig:box} Level.of.development and European.Union.Membership by Total.Number.of.Family.members respectively.", fig.pos = 'H'}
+# Draw boxplots
+box1 <- ggplot(data,aes(x=Household.Head.Sex,y=Total.Number.of.Family.members))+
+  geom_boxplot()+
+  labs(x='Household.Head.Sext',y='Women.Entrepreneurship.Index')
+box2 <- ggplot(data,aes(x=Type.of.Household,y=Total.Number.of.Family.members))+
+  geom_boxplot()+
+  labs(x='Type.of.Household',y='Total.Number.of.Family.members')
+box3 <- ggplot(data,aes(x=Number.of.bedrooms,y=Total.Number.of.Family.members))+
+  geom_boxplot()+
+  labs(x='Number.of.bedrooms',y='Total.Number.of.Family.members')
+box4 <- ggplot(data,aes(x=Electricity,y=Total.Number.of.Family.members))+
+  geom_boxplot()+
+  labs(x='Electricity',y='Total.Number.of.Family.members')
+
+# Merge two boxplots
+grid.arrange(box1,box2,box3,box4,nrow=2)
+```
+The top boxplot shows that female household head and single family household type have lower total number of family members.
+Thus, the household head sex and type of household have significantly effect on the total number of family members. 
+
+```{r plot1,echo = FALSE, fig.align = "center",fig.cap = "\\label{fig:plot1}Scatterplots of Total.Number.of.Family.members against total household income, total food expenditure, household head age, house floor area and house age respectively", fig.pos = 'H'}
+
+# Draw scatter plots
+point1 <-ggplot(data,aes(x=Total.Household.Income,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='Total.Household.Income',y='Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)
+
+point2 <- ggplot(data,aes(x=Total.Food.Expenditure,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='Total.Food.Expenditure',y='Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)
+
+point3 <- ggplot(data,aes(x=Household.Head.Age,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='Household.Head.Age',y='Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)
+
+point4 <- ggplot(data,aes(x=House.Floor.Area,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='House.Floor.Area',y='Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)
+
+point5 <- ggplot(data,aes(x=House.Age,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='House.Age',y='Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)
+
+# Merge two scatter plot
+grid.arrange(point1,point2,point3,point4,point5,nrow=3)
+```
+
+
+Figure \ref{fig:plot1} displays scatterplots of total number of family members against total household income, total food expenditure, household head age, house floor area and house age respectively. Since there is one ourlier shown in these scatter plots, the outlier is excluded from the dataset and new scatterplots are displayed in the following.
+
+```{r plot2,echo = FALSE, fig.align = "center",fig.cap = "\\label{fig:plot2}Scatterplots of Total.Number.of.Family.members against total household income, total food expenditure, household head age, house floor area and house age respectively", fig.pos = 'H'}
+
+#removing outlier
+data<-subset(data,House.Floor.Area<=600)
+data<-subset(data,Total.Household.Income <6071029)
+
+# Draw scatter plots
+point1 <-ggplot(data,aes(x=Total.Household.Income,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='Total.Household.Income',y='Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)
+
+point2 <- ggplot(data,aes(x=Total.Food.Expenditure,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='Total.Food.Expenditure',y='Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)
+
+point3 <- ggplot(data,aes(x=Household.Head.Age,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='Household.Head.Age',y='Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)
+
+point4 <- ggplot(data,aes(x=House.Floor.Area,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='House.Floor.Area',y='Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)
+
+point5 <- ggplot(data,aes(x=House.Age,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='House.Age',y='Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)
+
+grid.arrange(point1,point2,point3,point4,point5,nrow=3)
+```
+
+
+```{r, eval = TRUE}
+Cor.data.THI <-data %>%
+  get_correlation(formula = Total.Number.of.Family.members ~  Total.Household.Income)
+
+Cor.data.TFE <-data %>%
+  get_correlation(formula = Total.Number.of.Family.members ~ Total.Food.Expenditure)
+
+Cor.data.HHA <-data %>%
+  get_correlation(formula = Total.Number.of.Family.members ~ Household.Head.Age)
+
+Cor.data.HFA <-data %>%
+  get_correlation(formula = Total.Number.of.Family.members ~ House.Floor.Area)
+
+Cor.data.HA <-data %>%
+  get_correlation(formula = Total.Number.of.Family.members ~ House.Age)
+```
+
+Figure \ref{fig:plot2} displays scatterplots of total number of family members against total household income, total food expenditure, household head age, house floor area and house age respectively, with corresponding correlation: `r round(Cor.data.THI, 3)`, `r round(Cor.data.TFE, 3)`,`r round(Cor.data.HHA, 3)`,`r round(Cor.data.HFA, 3)`,`r round(Cor.data.HA, 3)`.
+All except household head age and house age have positive relationship with total number of family members.
+
+
+```
