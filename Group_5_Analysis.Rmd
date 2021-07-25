@@ -104,16 +104,23 @@ The summaries of the total number of family members of households with electrici
 # Draw boxplots
 box1 <- ggplot(data,aes(x=Household.Head.Sex,y=Total.Number.of.Family.members))+
   geom_boxplot()+
-  labs(x='Household.Head.Sext',y='Women.Entrepreneurship.Index')
+  labs(x='Household.Head.Sext',y='Women.Entrepreneurship.Index')+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
+
 box2 <- ggplot(data,aes(x=Type.of.Household,y=Total.Number.of.Family.members))+
   geom_boxplot()+
-  labs(x='Type.of.Household',y='Total.Number.of.Family.members')
+  labs(x='Type.of.Household',y='Total.Number.of.Family.members')+
+   theme(axis.text=element_text(size=4),title=element_text(size=5))
+
 box3 <- ggplot(data,aes(x=Number.of.bedrooms,y=Total.Number.of.Family.members))+
   geom_boxplot()+
-  labs(x='Number.of.bedrooms',y='Total.Number.of.Family.members')
+  labs(x='Number.of.bedrooms',y='Total.Number.of.Family.members')+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
+
 box4 <- ggplot(data,aes(x=Electricity,y=Total.Number.of.Family.members))+
   geom_boxplot()+
-  labs(x='Electricity',y='Total.Number.of.Family.members')
+  labs(x='Electricity',y='Total.Number.of.Family.members')+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
 
 # Merge two boxplots
 grid.arrange(box1,box2,box3,box4,nrow=2)
@@ -127,27 +134,32 @@ Thus, the household head sex and type of household have significantly effect on 
 point1 <-ggplot(data,aes(x=Total.Household.Income,y=Total.Number.of.Family.members))+
   geom_point()+
   labs(x='Total.Household.Income',y='Total.Number.of.Family.members')+
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
 
 point2 <- ggplot(data,aes(x=Total.Food.Expenditure,y=Total.Number.of.Family.members))+
   geom_point()+
   labs(x='Total.Food.Expenditure',y='Total.Number.of.Family.members')+
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
 
 point3 <- ggplot(data,aes(x=Household.Head.Age,y=Total.Number.of.Family.members))+
   geom_point()+
   labs(x='Household.Head.Age',y='Total.Number.of.Family.members')+
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
 
 point4 <- ggplot(data,aes(x=House.Floor.Area,y=Total.Number.of.Family.members))+
   geom_point()+
   labs(x='House.Floor.Area',y='Total.Number.of.Family.members')+
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
 
 point5 <- ggplot(data,aes(x=House.Age,y=Total.Number.of.Family.members))+
   geom_point()+
   labs(x='House.Age',y='Total.Number.of.Family.members')+
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
 
 # Merge two scatter plot
 grid.arrange(point1,point2,point3,point4,point5,nrow=3)
@@ -166,27 +178,32 @@ data<-subset(data,Total.Household.Income <6071029)
 point1 <-ggplot(data,aes(x=Total.Household.Income,y=Total.Number.of.Family.members))+
   geom_point()+
   labs(x='Total.Household.Income',y='Total.Number.of.Family.members')+
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
 
 point2 <- ggplot(data,aes(x=Total.Food.Expenditure,y=Total.Number.of.Family.members))+
   geom_point()+
   labs(x='Total.Food.Expenditure',y='Total.Number.of.Family.members')+
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
 
 point3 <- ggplot(data,aes(x=Household.Head.Age,y=Total.Number.of.Family.members))+
   geom_point()+
   labs(x='Household.Head.Age',y='Total.Number.of.Family.members')+
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
 
 point4 <- ggplot(data,aes(x=House.Floor.Area,y=Total.Number.of.Family.members))+
   geom_point()+
   labs(x='House.Floor.Area',y='Total.Number.of.Family.members')+
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
 
 point5 <- ggplot(data,aes(x=House.Age,y=Total.Number.of.Family.members))+
   geom_point()+
   labs(x='House.Age',y='Total.Number.of.Family.members')+
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
 
 grid.arrange(point1,point2,point3,point4,point5,nrow=3)
 ```
@@ -207,12 +224,90 @@ Cor.data.HFA <-data %>%
 
 Cor.data.HA <-data %>%
   get_correlation(formula = Total.Number.of.Family.members ~ House.Age)
-
 ```
+
 Figure \ref{fig:plot2} displays scatterplots of total number of family members against total household income, total food expenditure, household head age, house floor area and house age respectively, with corresponding correlation: `r round(Cor.data.THI, 3)`, `r round(Cor.data.TFE, 3)`,`r round(Cor.data.HHA, 3)`,`r round(Cor.data.HFA, 3)`,`r round(Cor.data.HA, 3)`.
 All except household head age and house age have positive relationship with total number of family members.
 
+```{r plot3,echo = FALSE, fig.align = "center",fig.cap = "\\label{fig:plot3}Scatterplots of log of Total.Number.of.Family.members against log of total household income, log of total food expenditure, log of household head age, log of house floor area and log of house age respectively", fig.pos = 'H'}
+data$House.Age<-data$House.Age+1
+data$Total.Number.of.Family.members <- log(data$Total.Number.of.Family.members)
+data$Total.Household.Income <- log(data$Total.Household.Income)
+data$Total.Food.Expenditure <- log(data$Total.Food.Expenditure)
+data$Household.Head.Age <- log(data$Household.Head.Age)
+data$House.Floor.Area <- log(data$House.Floor.Area)
+data$House.Age <- log(data$House.Age)
 
+point1 <-ggplot(data,aes(x=Total.Household.Income,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='Log of Total.Household.Income',y='Log of Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
+
+point2 <- ggplot(data,aes(x=Total.Food.Expenditure,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='Log of Total.Food.Expenditure',y='Log of Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
+
+point3 <- ggplot(data,aes(x=Household.Head.Age,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='Log of Household.Head.Age',y='Log of Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
+
+point4 <- ggplot(data,aes(x=House.Floor.Area,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='Log of House.Floor.Area',y='Log of Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
+
+point5 <- ggplot(data,aes(x=House.Age,y=Total.Number.of.Family.members))+
+  geom_point()+
+  labs(x='Log of House.Age',y='Log of Total.Number.of.Family.members')+
+  geom_smooth(method = "lm", se = FALSE)+
+  theme(axis.text=element_text(size=5),title=element_text(size=5))
+
+grid.arrange(point1,point2,point3,point4,point5,nrow=3)
+
+Cor.data.THI <-data %>%
+  get_correlation(formula = Total.Number.of.Family.members ~  Total.Household.Income)
+
+Cor.data.TFE <-data %>%
+  get_correlation(formula = Total.Number.of.Family.members ~ Total.Food.Expenditure)
+
+Cor.data.HHA <-data %>%
+  get_correlation(formula = Total.Number.of.Family.members ~ Household.Head.Age)
+
+Cor.data.HFA <-data %>%
+  get_correlation(formula = Total.Number.of.Family.members ~ House.Floor.Area)
+
+Cor.data.HA <-data %>%
+  get_correlation(formula = Total.Number.of.Family.members ~ House.Age)
+```
+The House. Age variable includes a value of 0, so the logarithmic conversion can not be done directly. Thus let $\log(House. Age + 1)$.
+
+Figure \ref{fig:plot3} displays scatterplots of log of total number of family members against log of total household income, log of total food expenditure, log of household head age, log of house floor area and log of house age respectively, with corresponding correlation: `r round(Cor.data.THI, 3)`, `r round(Cor.data.TFE, 3)`,`r round(Cor.data.HHA, 3)`,`r round(Cor.data.HFA, 3)`,`r round(Cor.data.HA, 3)`.
+All except log of household head age and log of house age have positive relationship with log of total number of family members.
+
+```{r Reimporting data}
+data <- read.csv('dataset5.csv')
+data <- data[,-2]
+data$Electricity<-as.factor(data$Electricity)
+data$Number.of.bedrooms <- as.factor(data$Number.of.bedrooms)
+
+
+data<-subset(data,House.Floor.Area<=600)
+data<-subset(data,Total.Household.Income <6071029)
+
+data$Total.Number.of.Family.members <- log(data$Total.Number.of.Family.members)
+
+data$Total.Household.Income <- log(data$Total.Household.Income)
+
+data$Total.Food.Expenditure <- log(data$Total.Food.Expenditure)
+
+data$House.Floor.Area <- log(data$House.Floor.Area)
+```
 
 \newpage
 # Formal Data Analysis {#sec:FDA}
