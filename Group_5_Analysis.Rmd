@@ -398,5 +398,7 @@ $$\mathbb{I}_{Two Or More Nonrelated Persons/Members }(x)=\left\{
 $\hat h$ is the coefficient of the explanatory variable "house age"
 
 
-# Conclusion {#sec:Con}
+# Conclusion and further work {#sec:Con}
 In conclusion, based on the graphical analysis, household head sex and type of household will affect the number of people living in a household. Specifically, with household head male, the number of people living in a household is more than household head female. In single family, the number of people living in a household is less than the extended family. In two or more nonrelated persons/members family, the number of people living in a household is more than the extended family. Moreover, total household income, household head age and house age have negative relationship with the number of people living in a household. However, total food expenditure has positive relationship with the number of people living in a household. 
+
+Furthermore, the assumption of constant variance is violated may result from the lack of important variables. Moreover, besides the variables in the final model, there may be other variables that potentially affect response variable.
