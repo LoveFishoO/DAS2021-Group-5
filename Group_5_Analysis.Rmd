@@ -29,13 +29,13 @@ library(broom)
 # Introduction {#sec:Intro}
 Experiments were conducted as part of research into "The number of people living in a household".
 
-1788 households were used in the experiments, and they each had their Annual household income in Philippine peso(Total.Household.Income), the region of the Philippines(Region), annual expenditure by the household on food in Philippine peso(Total.Food.Expenditure), head of the households sex(Household.Head.Sex), head of the households age in years(Household.Head.Age), relationship between the group of people living in the house(Type.of.Household), number of people living in the house(Total.Number.of.Family.members), floor area of the house(House.Floor.Area) in $m^2$, Age of the building in years(House.Age), number of bedrooms in the house(Number.of.bedrooms), whether the house have electricity with 1 is Yes and 0 is No)(Electricity).
+1788 households were used in the experiments, and they each had their Annual household income in Philippine peso(Total.Household.Income), the region of the Philippines(Region), annual expenditure by the household on food in Philippine peso(Total.Food.Expenditure), head of the households sex(Household.Head.Sex), head of the households age in years(Household.Head.Age), relationship between the group of people living in the house(Type.of.Household), number of people living in the house(Total.Number.of.Family.members), floor area of the house(House.Floor.Area) in $m^2$, Age of the building in years(House.Age), number of bedrooms in the house(Number.of.bedrooms), whether the house have electricity with 1 is Yes and 0 is No (Electricity).
 
 No missing or undefined values are included in the dataset, and Total.Number.of.Family.members is given against the attributes of each household, including Total.Household.Income, Region, Total.Food.Expenditure, Household.Head.Sex, Household.Head.Age, Type.of.Household, House.Floor.Area, House.Age, Number.of.bedrooms and Electricity.
 
 This dataset is helpful in a simple but illuminating research in understanding which household related variables may affect the number of people living in a household.
 
-In particular, this report presents numerical and graphical summaries of the number of people living in a household, and shows which variables have an effect on the it. Then, a linear model was fitted to estimate the difference, on average, between the number of people living in a household of household head male and female, and among the number of people living in a household of three types of household.
+In particular, this report presents numerical and graphical summaries of the number of people living in a household, and shows which variables have an effect on the it. Then, a generalized linear model was fitted to estimate the difference, on average, between the number of people living in a household of household head male and female, and among the number of people living in a household of three types of household.
 
 ```{r loading dataset}
 data <- read.csv('dataset5.csv') # Loading data set
@@ -45,6 +45,7 @@ data <- read.csv('dataset5.csv') # Loading data set
 data$Number.of.bedrooms<-as.factor(data$Number.of.bedrooms)
 data$Electricity<-as.factor(data$Electricity)
 ```
+
 
 # Exploratory Data Analysis {#sec:EDA}
 ```{r}
