@@ -213,14 +213,35 @@ Figure \ref{fig:plot2} displays scatterplots of total number of family members a
 All except household head age and house age have positive relationship with total number of family members.
 
 
+
+\newpage
 # Formal Data Analysis {#sec:FDA}
+```{r Reimporting data}
+data <- read.csv('dataset5.csv')
+data <- data[,-2]
+data$Electricity<-as.factor(data$Electricity)
+data$Number.of.bedrooms <- as.factor(data$Number.of.bedrooms)
+
+
+data<-subset(data,House.Floor.Area<=600)
+data<-subset(data,Total.Household.Income <6071029)
+
+data$Total.Number.of.Family.members <- log(data$Total.Number.of.Family.members)
+
+data$Total.Household.Income <- log(data$Total.Household.Income)
+
+data$Total.Food.Expenditure <- log(data$Total.Food.Expenditure)
+
+data$House.Floor.Area <- log(data$House.Floor.Area)
+```
+
 This report fits the following generalized linear model for the research.
 
 
 $$            \begin{array}{ll}
               \widehat{TNOFM}_{i} = \hat{a}+\hat{b} \cdot THI + \hat c \cdot TFE +\hat{d}_{Male} \cdot \mathbb{I}_{Male}(i) + \hat{e} \cdot HHA+\hat{f}_{SingleFamily} \cdot \mathbb{I}_{SingleFamily}(i) \\
               + \hat{g}_{Two Or More Nonrelated Persons/Members} \cdot \mathbb{I}_{Two Or More Nonrelated Persons/Members}(i) +\hat{h} \cdot HFA +\hat{i} \cdot HA \\
-              + \hat{j}_{N1} \cdot \mathbb{I}_{N1}(i) +\hat{k}_{N2} \cdot \mathbb{I}_{N2}(i)+\hat{l}_{N3} \cdot \mathbb{I}_{N3}(i)+\hat{m}_{N4} \cdot \mathbb{I}_{N4}(i)+\hat{n}_{N5} \cdot \mathbb{I}_{N5}(i)+\hat{o}_{N6} \cdot \mathbb{I}_{N6}(i)+ \hat{p}_{Yes} \cdot \mathbb{I}_{Yes}(i)
+              + \hat{j}_{N1} \cdot \mathbb{I}_{N1}(i) +\hat{k}_{N2} \cdot \mathbb{I}_{N2}(i)+\hat{l}_{N3} \cdot \mathbb{I}_{N3}(i)+\hat{m}_{N4} \cdot \mathbb{I}_{N4}(i)+\hat{n}_{N5} \cdot \mathbb{I}_{N5}(i)+\hat{o}_{N6} \cdot \mathbb{I}_{N6}(i)+ \hat{p}_{Yes} \cdot \mathbb{I}_{Yes}(i) +\epsilon_i
             \end{array}$$
 where
 
@@ -327,9 +348,11 @@ $$\mathbb{I}_{Yes }(x)=\left\{
               0 ~~~ \mbox{Otherwise}.\\
             \end{array}
           \right.$$
+          
+$\epsilon_i$ is the ith random error component.
 \newpage
 ```{r}
-full.model <- glm(Total.Number.of.Family.members~.,data = data,family = poisson)
+full.model <- glm(Total.Number.of.Family.members~.,data = data,family = gaussian)
 
 
 summary(full.model)$coefficients%>%
@@ -339,19 +362,19 @@ summary(full.model)$coefficients%>%
 
 ```
 
-Table\ref{tab:glm1} shows that all of the classification variables number of bedroom is not significant due to all p value are greater than 0.05. The p value of electricity and house floor area are approximately 0.685 and 0.255 which are both greater than 0.05, so these variables are also not significant for the response variable. One of the categorical variables for type of household is not significant (two or more unrelated people in the household). The remaining variables are all significant. Due to some variable is not significant for response variable, this report use step function to select variable that contribute to the model.
+Table\ref{tab:glm1} shows that majority of the classification variables number of bedroom is not significant due to most p values are greater than 0.05. The p value of electricity and house floor area are approximately 0.272 and 0.385 which are both greater than 0.05, so these variables are also not significant for the response variable. One of the categorical variables for type of household is not significant (two or more unrelated people in the household). The remaining variables are all significant. Due to some variable is not significant for response variable, this report will use step function to select variable that significantly contribute to the model.
 
 
 ```{r}
 s <-step(full.model,trace=0)
-
-summary(s)$coefficients%>%
-  kbl(booktabs = T,caption = '\\label{tab:glm2} Estimates of the parameters from the Generalized linear model.',col.names = c('Estimate', "Std.Error", "Z value",'P value'))%>%
+cbind(summary(s)$coefficients[,c(1,4)],confint(s)[,c(1,2)])%>%
+  kbl(booktabs = T,caption = '\\label{tab:glm2} Estimates of the parameters from the Generalized linear model.',col.names = c('Estimate','P Value','2.5%','97.5%'))%>%
   kable_styling(latex_options = c("striped","hold_position"))
+
 
 ```
 
-Table\ref{tab:glm2} shows the best model with smallest AIC.
+Table\ref{tab:glm2} shows the estimates of the parameters from the best model with the smallest AIC. Based on the Table\ref{tab:glm2}, the confidence intervals for total household income, total food expenditure,household head sex, household head age, and house age do not include zero, so these variables have significant effect on the total number of family members. Specifically, total food expenditure have positive affect on response variable. Compared with the female is the head of household, the head of a male household has a large population. The remain classification variable, type of household is not significant, but this variable contributes to the fitting of model. Therefore, this report fits the following model. 
 $$            \begin{array}{ll}
               \widehat{TNOFM}_{i} = \hat{a}+\hat{b} \cdot THI + \hat c \cdot TFE +\hat{d}_{Male} \cdot \mathbb{I}_{Male}(i) + \hat{e} \cdot HHA+\hat{f}_{SingleFamily} \cdot \mathbb{I}_{SingleFamily}(i) \\
               + \hat{g}_{Two Or More Nonrelated Persons/Members} \cdot \mathbb{I}_{Two Or More Nonrelated Persons/Members}(i) +\hat{h} \cdot HA\\
@@ -397,6 +420,31 @@ $$\mathbb{I}_{Two Or More Nonrelated Persons/Members }(x)=\left\{
           \right.$$
 $\hat h$ is the coefficient of the explanatory variable "house age"
 
+
+
+
+## Assumption Check
+```{r assumption check,fig.cap='\\label{fig:assumption checked}Scatterplot of the residual by fitted value(left) and histogram of the residual(right)',fig.pos = 'H',fig.align = "center"}
+m <- lm(Total.Number.of.Family.members~Total.Household.Income +Total.Food.Expenditure +Household.Head.Sex+Household.Head.Age+Type.of.Household +House.Age,data=data)
+
+
+regression.point <- get_regression_points(m)
+
+plot1 <- ggplot(regression.point,aes(x=Total.Number.of.Family.members_hat,y=residual))+
+  geom_point()+
+  geom_hline(yintercept=0,color='red')+
+  labs(x='Fitted Value',y='Residual')
+
+#Plot histogram of residual
+plot2 <- ggplot(regression.point,aes(x=residual))+
+  geom_histogram()+
+  labs(x='Residual')
+
+# Merge two graphs
+grid.arrange(plot1,plot2,nrow=1)
+
+```
+The left graph of figure \ref{fig:assumption checked} shows that points are randomly distributed above and below the zero line indicating the residuals have mean zero. However, there is linear descent pattern observed in the residuals. Therefore, the model needs to introduce more variables to process this question. The right graph shows that the residuals approximately appear to be bell-shaped.
 
 # Conclusion and further work {#sec:Con}
 In conclusion, based on the graphical analysis, household head sex and type of household will affect the number of people living in a household. Specifically, with household head male, the number of people living in a household is more than household head female. In single family, the number of people living in a household is less than the extended family. In two or more nonrelated persons/members family, the number of people living in a household is more than the extended family. Moreover, total household income, household head age and house age have negative relationship with the number of people living in a household. However, total food expenditure has positive relationship with the number of people living in a household. 
