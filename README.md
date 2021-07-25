@@ -15,7 +15,7 @@ This is a group work using GLM to analysis data. Dataset is from the Family Inco
 * Number.of.bedrooms – Number of bedrooms in the house
 * Electricity – Does the house have electricity? (1=Yes, 0=No)
 
-The aim of the group work is to find which variables would affect the number of people living in a household. Therefore, the group work use EDA and GLM model with Guassian distribution to analysis the dataset.
+The aim of the group work is to find which variables would affect the number of people living in a household. Therefore, the group work use EDA and GLM model with Gaussian distribution to analysis the dataset.
 
 ## Core contributors
 * [@GUMingShen](https://github.com/GUMingShen)   
